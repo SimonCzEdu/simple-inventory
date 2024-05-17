@@ -30,6 +30,7 @@ def select_action():
             option_selected = options_list[int(option_select) -1]
             print(f"\nYou selected option nr: {option_selected}\n")
             break
+    return option_select
 
 def select_item_name(selection):
     '''
