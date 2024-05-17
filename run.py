@@ -1,4 +1,5 @@
 import gspread
+import os
 from google.oauth2.service_account import Credentials
 
 SCOPE = [
@@ -28,7 +29,7 @@ def select_action():
     
     print(f"\nYou selected option nr: {option_selected}\n")
     
-    return option_selected
+    return option_select
 
 users_choice = select_action()
 if users_choice == "1. Add item":
