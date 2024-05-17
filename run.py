@@ -50,8 +50,7 @@ def select_item_name(selection):
     elif selection == 1 and item_found == True:
         os.system('cls')
         print('\nItem by that name is already on the list\n')
-        input("Do you want to try another item (y/n)?\n")
-        if select_action()
+        return_or_continue(selection)
     elif selection == 2 and item_found == True:
         print('Run remove_item()')
     elif selection == 3 and item_found == True:
@@ -61,8 +60,8 @@ def select_item_name(selection):
     elif selection == 5 and item_found == True:
         print('Run lookup_item()')   
     elif selection in range(2, 6) and item_found == False:
-        print('Item not found.\n\nTry another name')
-        select_item_name(selection)
+        print('Item not found.\n')
+        return_or_continue(selection)
 
 def validate_inputs(selection):
     try:       
@@ -79,6 +78,16 @@ def validate_inputs(selection):
         print(f"Invalid selection: {e2}. You selected: {selection}\nTry another option\n")
         return False
     return True
+
+def return_or_continue(selection):
+    answer = input("Do you want to try with different item (y/n)?\n").lower()
+    if answer == 'n':
+        main()
+    elif answer == 'y':
+        select_item_name(selection)
+    elif answer != 'y' or 'n':
+        print('Answer can only be y for yes or n for no')
+        return_or_continue(selection)
 
 def main():
     '''
