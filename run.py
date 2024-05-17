@@ -17,19 +17,19 @@ def select_action():
     '''
     Function input from a user will decide which action is taken.
     '''
-    
-    print("\nTo select an option type-in it's corresponding number number:\n")
-    options_list = ["1. Add item", "2. Remove item", "3. Rename item", "4. Change item count", "5. List all items", "6. Look up items by name"]
-    
-    for option in options_list:
-        print(option)
-                    
-    option_select = input("\nPlease, select what you would like to do: ")    
-    option_selected = str(options_list[int(option_select) -1])
-    
-    print(f"\nYou selected option nr: {option_selected}\n")
-    
-    return option_select
+    while True:
+        print("\nTo select an option type-in it's corresponding number number:\n")
+        options_list = ["1. Add item", "2. Remove item", "3. Rename item", "4. Change item count", "5. Lookup item by name", "6. List all items"]
+        
+        for option in options_list:
+            print(option)
+                
+        option_select = input("\nPlease, select what you would like to do:\n")
+                
+        if validate_inputs(option_select):
+            option_selected = options_list[int(option_select) -1]
+            print(f"\nYou selected option nr: {option_selected}\n")
+            break
 
 def select_item_name(selection):
     '''
@@ -57,7 +57,22 @@ def select_item_name(selection):
         print('Run change_item_count()')
     elif selection == 5 and item_found == True:
         print('Run lookup_item()')
- 
+
+def validate_inputs(selection):
+    try:       
+        if int(selection) not in range(1, 7):
+            raise IndexError(f"only numbers between 1 and 6 are accepted.")
+        elif type(selection) == int():
+            raise ValueError(f"letters are not permitted.")
+    except IndexError as e:
+        os.system('cls')
+        print(f"Invalid selection: {e}. You selected: {selection}\nTry another option\n")
+        return False
+    except ValueError as e2:
+        os.system('cls')
+        print(f"Invalid selection: {e2}. You selected: {selection}\nTry another option\n")
+        return False
+    return True
 
 def main():
     '''
