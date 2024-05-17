@@ -31,16 +31,42 @@ def select_action():
     
     return option_select
 
-users_choice = select_action()
-if users_choice == "1. Add item":
-    print('Run add func.')
-elif users_choice == "2. Remove item":
-    print('Run remove func.')
-elif users_choice == "3. Rename item":
-    print('Run rename func.')
-elif users_choice == "4. Change item count":
-    print('Run change func.')
-elif users_choice == "5. List all items":
-    print('Run list func.')
-elif users_choice == "6. Look up items by name":
-    print('Run look up func.')
+def select_item_name(selection):
+    '''
+    Function first asks for input of an item name. Then it checks if item already exists on a list and depending on action selected runs corresponding function.
+    '''
+    item_name_input = input('Input item name:\n')
+    print(f"\nYour item name is: {item_name_input}\n")
+    
+    inventory = SHEET.worksheet('inventory')
+    if inventory.find(str.lower(item_name_input)) != None:
+        item_found = True
+    else:
+        item_found = False
+    
+    if selection == 1 and item_found == False:
+        print('Run add_item()')
+    elif selection == 1 and item_found == True:
+        # os.system('cls')
+        print('\nItem by that name is already on the list\n\nChoose another name:')  
+    elif selection == 2 and item_found == True:
+        print('Run remove_item()')
+    elif selection == 3 and item_found == True:
+        print('Run rename_item()')
+    elif selection == 4 and item_found == True:
+        print('Run change_item_count()')
+    elif selection == 5 and item_found == True:
+        print('Run lookup_item()')
+ 
+
+def main():
+    '''
+    Program start function
+    '''
+    users_choice = int(select_action())
+    if users_choice != 6:
+        select_item_name(users_choice)
+    else:
+        print('Run. List all items')
+
+main()
