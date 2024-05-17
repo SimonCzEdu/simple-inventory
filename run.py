@@ -37,7 +37,7 @@ def select_item_name(selection):
     Function first asks for input of an item name. Then it checks if item already exists on a list and depending on action selected runs corresponding function.
     '''
     item_name_input = input('Input item name:\n')
-    print(f"\nYour item name is: {item_name_input}\n")
+    print(f"\nYou typed: {item_name_input}\n")
     
     inventory = SHEET.worksheet('inventory')
     if inventory.find(str.lower(item_name_input)) != None:
@@ -48,8 +48,10 @@ def select_item_name(selection):
     if selection == 1 and item_found == False:
         print('Run add_item()')
     elif selection == 1 and item_found == True:
-        # os.system('cls')
-        print('\nItem by that name is already on the list\n\nChoose another name:')  
+        os.system('cls')
+        print('\nItem by that name is already on the list\n')
+        input("Do you want to try another item (y/n)?\n")
+        if select_action()
     elif selection == 2 and item_found == True:
         print('Run remove_item()')
     elif selection == 3 and item_found == True:
@@ -57,7 +59,10 @@ def select_item_name(selection):
     elif selection == 4 and item_found == True:
         print('Run change_item_count()')
     elif selection == 5 and item_found == True:
-        print('Run lookup_item()')
+        print('Run lookup_item()')   
+    elif selection in range(2, 6) and item_found == False:
+        print('Item not found.\n\nTry another name')
+        select_item_name(selection)
 
 def validate_inputs(selection):
     try:       
