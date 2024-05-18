@@ -17,8 +17,9 @@ def select_action():
     '''
     Function input from a user will decide which action is taken.
     '''
+    os.system('cls')
     while True:
-        print("\nTo select an option type in it's corresponding number number:\n")
+        print("To select an option type in it's corresponding number number:\n")
         options_list = ["1. Add item", "2. Remove item", "3. Rename item", "4. Change item count", "5. Lookup item by name", "6. List all items"]
         
         for option in options_list:
@@ -36,7 +37,7 @@ def select_action():
 def selection_option_assignment(selection):
     '''
     Function first checks if option #6 was selected.
-    If it was function runs list_all_items() which does not need any additional inputs.
+    If it was, function runs list_all_items() which does not need any additional inputs.
     And if another option was selected function asks for input of an item name. 
     With name provided function checks if item already exists on a list.
     Depending on action selected selection_option_assignment() runs corresponding function.
@@ -49,6 +50,12 @@ def selection_option_assignment(selection):
         item_name_input = input('Input item name:\n')
         item_search = inventory.find(str.lower(item_name_input))
         print(f"\nYou typed: {item_name_input}\n")
+        
+        count_cell_value = int(inventory.cell(item_search.row, item_search.col + 1).value)
+        count_cell_address = inventory.cell(item_search.row, item_search.col + 1).address
+        name_cell_value = item_search.value
+        name_cell_address = item_search.address
+        
         if item_search != None:
             item_found = True
         else:
@@ -72,13 +79,16 @@ def selection_option_assignment(selection):
         elif selection == 5 and item_found == True:
             os.system('cls')
             print(f'You are searching for {item_name_input}...')
-            lookup_item(item_search, inventory)
+            update_cell_data(count_cell_value, count_cell_address, name_cell_value, name_cell_address, selection)
         elif selection in range(2, 6) and item_found == False:
             os.system('cls')
             print('Item not found.\n')
             return_or_continue(selection)
 
 def validate_inputs(selection):
+    '''
+    Function verifies if user inputs are integers in range of 1-6 (including 6)
+    '''
     try:       
         if int(selection) not in range(1, 7):
             raise IndexError(f"only numbers between 1 and 6 are accepted.")
@@ -90,11 +100,15 @@ def validate_inputs(selection):
         return False
     except ValueError:
         os.system('cls')
-        print(f"Invalid selection: letters and special characters are not permitted. You inserted: {selection}\nPlease, use numbers to chose options\n")
+        print(f"Invalid selection: letters and special characters are not permitted. You inserted: {selection}\nPlease, use numbers to select options\n")
         return False
     return True
 
 def return_or_continue(selection):
+    '''
+    In case selection_option_assignment() does not find a item_name used by a user
+    this function will allow user to input new item_name or otherwise return to main menu.    
+    '''
     answer = input("Do you want to try with different item (y/n)?\n").lower()
     if answer == 'n':
         os.system('cls')
@@ -105,16 +119,13 @@ def return_or_continue(selection):
         print('\nPlease select:\n"y" for yes\nor\n"n" for no\n')
         return_or_continue(selection)
 
-def lookup_item(item_search, inventory):
+def update_cell_data(count_cell_value, count_cell_address, name_cell_value, name_cell_address, selection):
     '''
-    This function allows user to check for specific items.
-    If item is found it will be printed to the terminal along with it's count and list position.
+    After selection_option_assignment() runs it passes cell location data for searched items.
+    This function uses this data to access those cells and depending on select_action() result it will apply correct action (i.e remove item and it's count).
     '''
-    count_cell_value = int(inventory.cell(item_search.row, item_search.col + 1).value)
-    count_cell_address = inventory.cell(item_search.row, item_search.col + 1).address
-    name_cell_address = item_search.address
-    
-    print(f"Item: {item_search.value.upper()}\nCount: {count_cell_value}\nList address: {name_cell_address}{count_cell_address}")
+    if selection == 5:
+        print(f"Item: {name_cell_value.upper()}\nCount: {count_cell_value}\nList address: {name_cell_address}{count_cell_address}")
 
 def list_all_items(inventory):
     '''
