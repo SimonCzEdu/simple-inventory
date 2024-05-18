@@ -42,13 +42,14 @@ def selection_option_assignment(selection):
     Depending on action selected selection_option_assignment() runs corresponding function.
     '''
     inventory = SHEET.worksheet('inventory')
-    
+        
     if selection == 6:
         list_all_items(inventory.get_all_values())
     else:
         item_name_input = input('Input item name:\n')
+        item_search = inventory.find(str.lower(item_name_input))
         print(f"\nYou typed: {item_name_input}\n")
-        if inventory.find(str.lower(item_name_input)) != None:
+        if item_search != None:
             item_found = True
         else:
             item_found = False
@@ -70,7 +71,8 @@ def selection_option_assignment(selection):
             print(f'You are changing count of {item_name_input}..')
         elif selection == 5 and item_found == True:
             os.system('cls')
-            print(f'You are searching for {item_name_input}...')  
+            print(f'You are searching for {item_name_input}...')
+            lookup_item(item_search, inventory)
         elif selection in range(2, 6) and item_found == False:
             os.system('cls')
             print('Item not found.\n')
@@ -102,6 +104,17 @@ def return_or_continue(selection):
     elif answer != 'y' or 'n':
         print('\nPlease select:\n"y" for yes\nor\n"n" for no\n')
         return_or_continue(selection)
+
+def lookup_item(item_search, inventory):
+    '''
+    This function allows user to check for specific items.
+    If item is found it will be printed to the terminal along with it's count and list position.
+    '''
+    count_cell_value = int(inventory.cell(item_search.row, item_search.col + 1).value)
+    count_cell_address = inventory.cell(item_search.row, item_search.col + 1).address
+    name_cell_address = item_search.address
+    
+    print(f"Item: {item_search.value.upper()}\nCount: {count_cell_value}\nList address: {name_cell_address}{count_cell_address}")
 
 def list_all_items(inventory):
     '''
