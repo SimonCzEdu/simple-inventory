@@ -67,11 +67,14 @@ def selection_option_assignment(selection):
             name_cell_address = item_search_result.address
         
         if selection == 1 and item_search_result == None:
-            print(f"Adding {item_name_input} to the list...")
-            new_item_count = input(f"The count of {item_name_input}:\n")
-            inventory.append_row([item_name_input, new_item_count])
-            print(f"{item_name_input} successfully added to the list.")
-            main()
+            while True:
+                print(f"Adding {item_name_input} to the list...")
+                new_item_count = input(f"The count of {item_name_input}:\n")
+                if count_input_validation(new_item_count):
+                    entered_item_count = int(new_item_count)
+                    inventory.append_row([item_name_input, entered_item_count])
+                    break
+            main()        
         elif selection == 1 and item_search_result != None:
             os.system('cls')
             print(f'\nItem by the name\n{item_name_input}\nis already on the list\n')
@@ -95,19 +98,15 @@ def selection_option_assignment(selection):
                 print("Item like this already exists.")
                 main()
         elif selection == 4 and item_search_result != None:
-            os.system('cls')
-            print(f'You are changing count of {item_name_input}...')
-            new_count = input('Input new count value:\n')
-            try:
-                if new_count != type(int()):
-                    raise ValueError(f"has to be a whole number i.e. 10. Floats i.e. 1.1 will not be accepted.\n")
-            except ValueError as e:
-                print(f"Your input {e}Returning to main menu")
-                main()
-            else:
-                inventory.update_acell(count_cell_address, new_count)
-                print(f'Item count updated to {new_count}')
-                main()
+            while True:                          
+                print(f'You are changing count of {item_name_input}...')
+                new_count = input('Input new count value:\n')
+                if count_input_validation(new_count):
+                    value_of_new_count = int(new_count)
+                    inventory.update_acell(count_cell_address, value_of_new_count)
+                    print(f"Count of {item_name_input} changed to: {value_of_new_count}")
+                    break
+            main()                
         elif selection == 5 and item_search_result != None:
             os.system('cls')
             print(f'You are searching for {item_name_input}...\n')
@@ -117,6 +116,15 @@ def selection_option_assignment(selection):
             os.system('cls')
             print('Item not found.\n')
             main()
+
+def count_input_validation(count):
+    try:
+        int(count)
+    except ValueError as e:
+        os.system('cls')
+        print(f"Your input has to be a whole number i.e. 10. Letters/strings or floats i.e. 1.1 will not be accepted.\nTry again")
+        return False
+    return True
 
 def validate_selection_inputs(selection):
     '''
