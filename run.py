@@ -18,7 +18,7 @@ def select_action():
     Function input from a user will decide which action is taken.
     '''
     while True:
-        print("\nTo select an option type in it's corresponding number number:\n")
+        print("\nSelect an option by typing in it's corresponding number:\n")
         options_list = ["1. Add item", "2. Remove item", "3. Rename item", "4. Change item count", "5. Lookup item by name", "6. List all items"]
         
         for option in options_list:
@@ -45,6 +45,7 @@ def selection_option_assignment(selection):
         
     if selection == 6:
         list_all_items(inventory.get_all_values())
+        main()
     else:
         def name_input(input):
             '''
@@ -55,10 +56,10 @@ def selection_option_assignment(selection):
             That none value can later be used in the "if/else if" statement to select option to be run.
             '''
             item_search = inventory.find(str(input))
-            print(f"\nYou typed: {input}\n")
+            print(f"\nItem selected: {input}\n")
             return item_search
             
-        item_name_input = input('Input item name:\n')
+        item_name_input = input('Select item name:\n')
         item_search_result = name_input(item_name_input)
         if item_search_result != None:
             count_cell_value = int(inventory.cell(item_search_result.row, item_search_result.col + 1).value)
@@ -73,11 +74,12 @@ def selection_option_assignment(selection):
                 if count_input_validation(new_item_count):
                     entered_item_count = int(new_item_count)
                     inventory.append_row([item_name_input, entered_item_count])
+                    print(f"You successfully added {new_item_count} - {item_name_input} to your list. ")
                     break
             main()        
         elif selection == 1 and item_search_result != None:
             os.system('cls')
-            print(f'\nItem by the name\n{item_name_input}\nis already on the list\n')
+            print(f'\nItem by the name: "{item_name_input}" is already on the list\nReturning to main menu...')
             main()
         elif selection == 2 and item_search_result != None:
             os.system('cls')
@@ -114,10 +116,13 @@ def selection_option_assignment(selection):
             main()
         elif selection in range(2, 6) and item_search_result == None:
             os.system('cls')
-            print('Item not found.\n')
+            print(f'Item "{item_name_input}" not found.\n')
             main()
 
 def count_input_validation(count):
+    '''
+    Validates inputs for adding count to new items and changing counts of existing items.
+    '''
     try:
         int(count)
     except ValueError as e:
@@ -144,21 +149,6 @@ def validate_selection_inputs(selection):
         print(f"Invalid selection: letters and special characters are not permitted. You inserted: {selection}\nPlease, use numbers to select options\n")
         return False
     return True
-
-# def return_or_continue(selection):
-    '''
-    In case selection_option_assignment() does not find the item_name used by a user
-    this function will allow user to input new item_name or otherwise return to main menu.    
-    '''
-    answer = input("Would you like to modify different item? If you chose (N or n), you will return to the main menu.\nIf you chose (Y or y), you can retype item you whish to modify.\n").lower()
-    if answer == 'n':
-        os.system('cls')
-        main()
-    elif answer == 'y':
-        selection_option_assignment(selection)
-    elif answer != 'y' or 'n':
-        print('\nPlease select:\nY for yes\nor\nN for no\n')
-        return_or_continue(selection)
 
 def list_all_items(inventory):
     '''
