@@ -95,12 +95,16 @@ def selection_option_assignment(selection):
                 if count_input_validation(new_item_count):
                     entered_item_count = int(new_item_count)
                     inventory.append_row([item_name_input, entered_item_count])
-                    print(f"You successfully added {new_item_count} - {item_name_input} to your list.")
+                    print(f"You successfully added")
+                    print(f"{new_item_count} - {item_name_input}")
+                    print(f"to your list.")
                     break
             main()
         elif selection == 1 and item_search_result is not None:
             os.system('clear')
-            print(f'\nItem by the name: "{item_name_input}" is already on the list')
+            print(f'\nItem by the name:')
+            print(f'"{item_name_input}"')
+            print(f'is already on the list')
             print(f"Returning to main menu...")
             main()
         elif selection == 2 and item_search_result is not None:
@@ -130,13 +134,16 @@ def selection_option_assignment(selection):
                     inventory.update_acell(
                         count_cell_address, value_of_new_count
                         )
-                    print(f"Count of {item_name_input} changed to: {value_of_new_count}")
+                    print(f"Count of {item_name_input}")
+                    print(f"changed to: {value_of_new_count}")
                     break
             main()
         elif selection == 5 and item_search_result is not None:
             os.system('clear')
             print(f'You are searching for {item_name_input}...\n')
-            print(f"Item: {name_cell_value.upper()}\nCount: {count_cell_value}\nList address: {name_cell_address}{count_cell_address}\n")
+            print(f"Item: {name_cell_value.upper()}")
+            print(f"Count: {count_cell_value}")
+            print(f"List address: {name_cell_address}{count_cell_address}\n")
             main()
         elif selection in range(2, 6) and item_search_result is None:
             os.system('clear')
@@ -146,13 +153,16 @@ def selection_option_assignment(selection):
 
 def count_input_validation(count):
     '''
-    Validates inputs for adding count to new items and changing counts of existing items.
+    Validates inputs for adding count to new items
+    and changing counts of existing items.
     '''
     try:
         int(count)
     except ValueError as e:
         os.system('clear')
-        print(f"Your input has to be a whole number i.e. 10. Letters/strings or floats i.e. 1.1 will not be accepted.\nTry again")
+        print("Your input has to be a whole number i.e. 10.")
+        print("Letters/strings or floats i.e. 1.1 will not be accepted.")
+        print("Try again")
         return False
     return True
 
@@ -168,19 +178,24 @@ def validate_selection_inputs(selection):
             raise ValueError()
     except IndexError as e:
         os.system('clear')
-        print(f"Invalid selection: {e}. You selected: {selection}\nTry another option\n")
+        print(f"Invalid selection: {e}.")
+        print(f"You selected: {selection}")
+        print(f"Try another option\n")
         return False
     except ValueError:
         os.system('clear')
-        print(f"Invalid selection: letters and special characters are not permitted.")
-        print(f"You inserted: {selection}\nPlease, use numbers to select options\n")
+        print("Invalid selection.")
+        print("Letters and special characters are not permitted.")
+        print(f"You inserted: {selection}")
+        print("Please, use numbers to select options\n")
         return False
     return True
 
 
 def list_all_items(inventory):
     '''
-    This function lists all items (including headlines for reference) currently the list
+    This function lists all items (including headlines for reference)
+    currently the list
     '''
     for item in inventory:
         print(item)
