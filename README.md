@@ -196,6 +196,7 @@ This project was deployed using Code Institute's mock terminal for Heroku.
 * clearing terminal with a function:
 	* https://www.geeksforgeeks.org/clear-screen-python/
 
+* DISCLAIMER: This project is based on "the Love Sandwiches" project by Code Institute. It is used mainly as a base and set up. This is my first project using Python and I could not do this on my own without help and guidance of the Code Institute.
 
 [Back to top](<#contents>)
 
