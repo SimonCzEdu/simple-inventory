@@ -73,9 +73,9 @@ def selection_option_assignment(selection):
             item_search = inventory.find(str(input))
             print(f"\nItem selected: {input}\n")
             return item_search
-
+        
+        print("REMINDER: item name is case sensitive for items already on the list")
         item_name_input = input('Select item name:\n')
-        print("Item name is case sensitive for items already on the list")
         item_search_result = name_input(item_name_input)
         if item_search_result is not None:
             count_cell_value = int(
