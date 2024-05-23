@@ -29,9 +29,7 @@ And here you can find a spreadsheet for this app (available to all with the link
 * [**Testing**](<#testing>)
 * [**Deployment**](<#deployment>)
 * [**Credits**](<#credits>)
-    * [**Content**](<#content>)
-    * [**Media**](<#media>)
-*  [**Acknowledgments**](<#acknowledgments>)
+* [**Acknowledgments**](<#acknowledgments>)
 
 
 # User Experience (UX)
@@ -167,7 +165,11 @@ The program starts in "the main menu" with simple instructions to input a number
 
 # Testing
 
-I tested every feature as I was coding it. I also asked my peers and close ones to test it and try to break the program. In testing I used print statements as a main method of troubleshooting. The program is simple enough that I could do with this amount of testing to be confident it meets my goals. 
+I tested every feature as I was coding it. I also asked my peers and close ones to test it and try to break the program. In testing I used print statements as a main method of troubleshooting. The program is simple enough that I could do with this amount of testing to be confident it meets my goals.
+
+The code was tested using Code Institute's Python Linter and returned no errors after corrections. The code was retested after that to ensure that no functionality was broken.
+
+![Simple-Inventory Python Linter Result](assets/image/readme-image/linter-result.jpg)
 
 [Back to top](<#contents>)
 
