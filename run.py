@@ -75,6 +75,7 @@ def selection_option_assignment(selection):
             return item_search
 
         item_name_input = input('Select item name:\n')
+        print("Item name is case sensitive for items already on the list")
         item_search_result = name_input(item_name_input)
         if item_search_result is not None:
             count_cell_value = int(
