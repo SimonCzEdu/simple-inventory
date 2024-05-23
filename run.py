@@ -141,8 +141,8 @@ def selection_option_assignment(selection):
             main()
         elif selection == 5 and item_search_result is not None:
             os.system('clear')
-            print(f'You are searching for {item_name_input}...\n')
-            print(f"Item: {name_cell_value.upper()}")
+            print(f"You are searching for {item_name_input}...\n")
+            print(f"Item: {name_cell_value}")
             print(f"Count: {count_cell_value}")
             print(f"List address: {name_cell_address}{count_cell_address}\n")
             main()
